@@ -6,8 +6,8 @@
 
 .feed-main-container{
   display: grid;
-  grid-template-columns: 16rem 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 18rem 1fr;
+  grid-template-rows: 5rem 1fr;
   grid-template-areas: 
   "aside header"
   "aside section";
@@ -17,17 +17,16 @@
 header{
   grid-area: header;
   padding: 2rem;
-  background-color: red;
+  border-bottom: 1px solid grey;
 }
 
 aside{
   grid-area: aside;
   padding: 2rem;
-  background-color: green;
+  border-right: 1px solid grey;
 }
 
 section{
   grid-area: section;
   padding: 2rem;
-  background-color: blue;
 }
