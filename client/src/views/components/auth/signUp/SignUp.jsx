@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../../../../styles/components/auth/signUp/signUp.css'
-// import Images from '../../../../assets/images/svg/index.js'
 import openEye from '../../../../assets/images/svg/openEye.svg'
 import eyeClosed from '../../../../assets/images/svg/eyeClosed.svg'
 import googleLogo from '../../../../assets/images/svg/googleLogo.svg'
@@ -18,6 +17,26 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate()
 
+
+  
+
+  const [values, setValues] = useState({
+    firstName: '',
+    lastName: '',
+    profession: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+
+
+  function handleInput (e){
+    const newObj = {...values, [e.target.name]: e.target.value}
+    setValues(newObj)
+  }
+
+
+
   const handleSubmit = (e)=>{
     e.preventDefault()
     axios.post('http://localhost:3001/signUp', {firstName, lastName, profession, email, password, confirmPassword})
@@ -27,6 +46,7 @@ const SignUp = () => {
     .catch(err => console.log(err))
   }
 
+  
   return (
     <div className="main-container">
       <div className="grid-container">
@@ -61,7 +81,7 @@ const SignUp = () => {
               <div className="lastName">
                 <div><label htmlFor="lastName">Last name</label></div>
                 <div className='half-box'>
-                  <input onChange={(e) => setLastName(e.target.value)} value={lastName} type="text" name="" id="last_name" placeholder='Doe'/>
+                  <input onChange={(e) => setLastName(e.target.value)} value={lastName} type="text" name="" id="last_name" placeholder='Doe' required = "required"/>
                   </div>
               </div>
             </div>
@@ -82,20 +102,20 @@ const SignUp = () => {
             <div className="input-box">
               <label htmlFor="email">Email</label>
               <div className="email-input-box">
-                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email" placeholder='johndoe@gmail.com'/>
+                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email" placeholder='johndoe@gmail.com' required = "required"/>
               </div>
             </div>
             <div className="input-box">
               <label htmlFor="password">Password</label>
               <div className="password-input-box">
-                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password" placeholder='***********'/>
+                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password" placeholder='***********' required = "required"/>
                 <img src={openEye} alt="open eye" />
               </div>
             </div>
             <div className="input-box">
-              <label htmlFor="confirmPassword">Password</label>
+              <label htmlFor="confirmPassword">Confirm password</label>
               <div className="confirm-password-input">
-                <input onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} type="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder='***********'/>
+                <input onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} type="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder='***********' required = "required"/>
                 <img src={eyeClosed} alt="closed eye" />
               </div>
             </div>

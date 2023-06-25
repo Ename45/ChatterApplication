@@ -5,7 +5,7 @@ import productDesigner from '../../../assets/images/svg/productDesigner.svg'
 import softwareDeveloper from '../../../assets/images/svg/softwareDeveloper.svg'
 import politicalAnalyst from '../../../assets/images/svg/politicalAnalyst.svg'
 
-export const feeds = [
+export const feedList = [
   {
     profileImage: person2,
     fullName: "Grace Ikpang",
@@ -18,6 +18,7 @@ export const feeds = [
     comment: 200,
     likes: 120,
     views: "2980 views",
+    id: 1
   },
   {
     profileImage: person4,
@@ -31,6 +32,7 @@ export const feeds = [
     comment: 200,
     likes: 120,
     views: "2980 views",
+    id: 2
   },
   {
     profileImage: person3,
@@ -44,5 +46,6 @@ export const feeds = [
     comment: 200,
     likes: 120,
     views: "2980 views",
+    id: 3
   },
 ]

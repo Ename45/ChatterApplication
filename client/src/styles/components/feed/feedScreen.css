@@ -17,16 +17,32 @@
 header{
   grid-area: header;
   padding: 2rem;
-  border-bottom: 1px solid grey;
+  border-bottom: 2px solid rgb(228, 228, 228);
 }
 
 aside{
   grid-area: aside;
   padding: 2rem;
-  border-right: 1px solid grey;
+  border-right: 2px solid rgb(228, 228, 228);
 }
 
 section{
   grid-area: section;
-  padding: 2rem;
+  padding: 3rem 4rem 0rem 1.5rem;
+}
+
+.section-inner-container{
+  border: 2px solid rgb(228, 228, 228);
+  height: 100vh;
+  width: 100%;
+}
+
+.aside-header h1 {
+  margin: auto;
+  width: 140px;
+  height: 48px;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  color: rgba(84, 62, 224, 1);
 }
