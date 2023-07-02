@@ -1,5 +1,5 @@
 const express = require('express')
-const {createFeed, getAllFeeds, getFeedById, deleteFeedById, updateFeed} = require("../controllers/feedController");
+const {createFeed, getAllFeeds, getFeedById, deleteFeedById, updateFeed} = require("../repositories/feedRepository");
 
 
 const router = express.Router()

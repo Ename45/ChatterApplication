@@ -1,14 +1,16 @@
 const express = require('express')
 require('dotenv').config()
 const mongoose = require('mongoose')
-const feedScreenRoutes = require('./routes/feedScreen')
+const feedRoutes = require('./routes_controllers/feedController')
+const userRoutes = require('./routes_controllers/userController')
 
 
 const app = express()
 
 app.use(express.json())
 
-app.use('/api/feeds',feedScreenRoutes)
+app.use('/api/feeds', feedRoutes)
+app.use('/api/users', userRoutes)
 
 
 mongoose.connect(process.env.MONGO_URI)

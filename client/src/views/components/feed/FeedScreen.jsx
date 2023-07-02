@@ -1,11 +1,12 @@
 import React from 'react'
 import '../../../styles/components/feed/feedScreen.css'
-import Feed from './Feed'
+import Feed from '../feed/Feed'
 import pencil from '../../../../src/assets/images/svg/pencil.svg'
 import {Link} from 'react-router-dom'
 
 
 const FeedScreen = () => {
+  
   return (
     <div className="feed-main-container">
       <aside>

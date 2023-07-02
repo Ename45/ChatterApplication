@@ -1,6 +1,8 @@
 import React from 'react'
 
 const CreatePost = () => {
+
+  
   return (
     <div className="feed-main-container">
       <aside>
