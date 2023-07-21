@@ -14,7 +14,7 @@ const LandingPage = () => {
     return (
     <div class="main-container">
         <div class="inner-container">
-            <div class="navbars">
+            <div class="navbar">
                 <div class="logo">
                     <p>CHATTER</p>
                 </div>
@@ -28,7 +28,7 @@ const LandingPage = () => {
                 </div>
                 <div class="nav-button">
                     <Link to="/login" class="button1">
-                        <button className='btn'>Log in</button>
+                        <button className='btn'>Login</button>
                     </Link>
                     <Link to="/signUp" class="button2">
                         <button className='btn'>Sign up</button>

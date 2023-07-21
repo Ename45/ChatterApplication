@@ -5,6 +5,7 @@ import openEye from '../../../../assets/images/svg/openEye.svg'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import AuthPages from '../../reuseables/AuthPages';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,14 +22,8 @@ const Login = () => {
   }
 
   return (
-    <div className="main-container">
-      <div className="grid-container">
-        <div className="bg-container">
-          <div className="bg-text">
-            <h1>CHATTER</h1>
-            <p>Unleash the Power of Words, Connect with Like-minded Readers and Writers</p>
-          </div>
-        </div>
+    <div className="login-main-container">
+      <AuthPages/>
         <div className="form-container">
           <div className="reg-log-container">
             <Link  to="/signUp" className="reg">
@@ -62,7 +57,6 @@ const Login = () => {
             </div>
           </form>
         </div>
-      </div>
     </div>
   )
 }

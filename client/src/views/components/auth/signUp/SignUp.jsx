@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import {Link, useNavigate} from 'react-router-dom'
 import '../../../../styles/components/auth/signUp/signUp.css'
 import openEye from '../../../../assets/images/svg/openEye.svg'
 import eyeClosed from '../../../../assets/images/svg/eyeClosed.svg'
 import googleLogo from '../../../../assets/images/svg/googleLogo.svg'
 import linkedinLogo from '../../../../assets/images/svg/linkedinLogo.svg'
-import axios from 'axios';
+import AuthPages from '../../reuseables/AuthPages';
+import Axios from 'axios'
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -13,44 +15,56 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  // const navigate = useNavigate()
+
+  const navigate = useNavigate()
 
 
+  // const passwordCheck = () => {
+  //   if (password === confirmPassword) {
+      
+  //   }
+  // }
 
-  // const handleSubmit = (e)=>{
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await Axios.post('http://localhost:3000/api/1.0/users/signUp', {
+        firstName,
+        lastName,
+        profession,
+        email,
+        password,
+        confirmPassword,
+      });
+      console.log(response.data);
+      navigate('/codeConfirmation');
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+
+  // const handleSubmit = async(e)=>{
   //   e.preventDefault()
-  //   axios.post('http://localhost:5173/signUp', {firstName, lastName, profession, email, password})
-  //   .then(result => {console.log(result)
-  //   navigate('/codeConfirmation')    
+  //   const result = await Axios.post('http://localhost:3000/api/users/signUp', {firstName, lastName, profession, email, password, confirmPassword})
+  //   .then(result => {
+  //     console.log(result)
+  //     navigate('/codeConfirmation')
   //   })
   //   .catch(err => console.log(err))
   // }
-
-  const handleSubmit =(e)=>{
-    e.preventDefault()
-    axios.post('http://localhost:3001/signUp', {firstName, lastName, profession, email, password})
-    .then(result => {console.log(result)})
-    .catch(err => console.log(err))
-  }
-
   
   return (
-    <div className="main-container">
-      <div className="grid-container">
-        <div className="bg-container">
-          <div className="bg-text">
-            <h1>CHATTER</h1>
-            <p>Unleash the Power of Words, Connect with Like-minded Readers and Writers</p>
-          </div>
-        </div>
-        <div className="form-container">
+    <div className='signUp-main-container'>
+    <AuthPages/>
+    <div className="form-container">
           <div className="regis-log-container">
             <span className="reg">
               <p>REGISTER</p>
             </span>
-            <div className="log">
+            <Link to='/login' className="log">
               <p>LOGIN</p>
-            </div>            
+            </Link>            
           </div>
           <div className="form-header">
             <h2>Register as a Writer/Reader</h2>
@@ -65,7 +79,8 @@ const SignUp = () => {
                 <input 
                 type="text" 
                 name="first" 
-                id="firstName" 
+                id="firstName"
+                required= 'required' 
                 placeholder='John'
                 autoComplete='on'
                 value={firstName}
@@ -80,6 +95,7 @@ const SignUp = () => {
                   type="text" 
                   name="lastName "
                   id="lastName" 
+                  required= 'required' 
                   placeholder='Doe' 
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -94,6 +110,7 @@ const SignUp = () => {
                 <select 
                 name="profession" 
                 id="profession"
+                required= 'required' 
                 autoComplete='on'
                 value={profession}
                 onChange={(e) =>{
@@ -114,6 +131,7 @@ const SignUp = () => {
                 type="email" 
                 name="email" 
                 id="email" 
+                required= 'required' 
                 placeholder='johndoe@gmail.com' 
                 autoComplete='on'
                 value={email}
@@ -130,6 +148,7 @@ const SignUp = () => {
                 type="password" 
                 name="password" 
                 id="password" 
+                required= 'required' 
                 placeholder='***********'
                 autoComplete='on'
                 value={password}
@@ -144,9 +163,10 @@ const SignUp = () => {
               <label htmlFor="confirmPassword">Confirm password</label>
               <div className="confirm-password-input">
                 <input 
-                type="confirmPassword" 
+                type="password" 
                 name="confirmPassword" 
                 id="confirmPassword" 
+                required= 'required' 
                 placeholder='***********'
                 autoComplete='on'
                 value={confirmPassword}
@@ -159,7 +179,7 @@ const SignUp = () => {
             </div>
             <div className="create-acc-btn">
               <div className="link-code-confirm">
-                <button className='my-btn'>Create account</button>
+                <button type='submit' className='my-btn'>Create account</button>
               </div>
             </div>
           </form>
@@ -176,7 +196,6 @@ const SignUp = () => {
               </div>
             </div>
         </div>
-      </div>
     </div>
   )
 }
