@@ -1,6 +1,7 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
+const feedRoutes = require('./routes/feedRoutes')
 const cors = require("cors");
 
 require("dotenv").config();
@@ -14,7 +15,12 @@ app.use(cors());
 //cookie middleware
 app.use(cookieParser()); //jsonwebtoken npm documentation
 
+
 app.use("/api/1.0/users", userRoutes);
+app.use("/api/1.0/feeds", feedRoutes);
+
+
+
 
 app.get("/", (req, res) => {
   res.send("Hi from me");
