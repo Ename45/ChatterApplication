@@ -31,6 +31,6 @@ router.delete("/:id", (req, res) => {
   res.status(501).json({ error: `Not implemented: ${id}` });
 });
 
-router.post("/signUp", signUp);
+// router.post("/signUp", signUp);
 
 module.exports = router;

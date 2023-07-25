@@ -18,18 +18,20 @@ model User{
   email       String @unique
   password    String
   emailVerified DateTime?
+  isVerified Boolean @default(false)
   image       String?
   coverImage  String?
   profileImage  String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  followingIds String[] @db.ObjectId
-  hasNotification  Boolean?
 
-  
   myPost Feed [] @relation("UserToFeed")
-  comments  Comment[] @relation("UserToComment")
-  notifications Notification[]  @relation("UserToNotification")
+
+  // followingIds String[] @db.ObjectId
+  // hasNotification  Boolean?
+  
+  // comments  Comment[] @relation("UserToComment")
+  // notifications Notification[]  @relation("UserToNotification")
 }
 
 
@@ -45,7 +47,7 @@ model Feed{
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  comments Comment[] @relation("FeedToComment")
+  // comments Comment[] @relation("FeedToComment")
 }
 
 
@@ -57,8 +59,8 @@ model Comment{
   updatedAt   DateTime @updatedAt
   userId      String  @db.ObjectId
   feedId      String  @db.ObjectId
-  user User  @relation("UserToComment", fields: [userId], references: [id], onDelete: Cascade)
-  post Feed  @relation("FeedToComment", fields: [feedId], references: [id], onDelete: Cascade)
+  // user User  @relation("UserToComment", fields: [userId], references: [id], onDelete: Cascade)
+  // post Feed  @relation("FeedToComment", fields: [feedId], references: [id], onDelete: Cascade)
 }
 
 
@@ -68,5 +70,5 @@ model Notification{
   userId      String  @db.ObjectId
   createdAt   DateTime @default(now())
 
-  user User  @relation("UserToNotification", fields: [userId], references: [id], onDelete: Cascade)
+  // user User  @relation("UserToNotification", fields: [userId], references: [id], onDelete: Cascade)
 }

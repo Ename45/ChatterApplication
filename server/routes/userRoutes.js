@@ -1,38 +1,25 @@
 const express = require("express");
-
 const router = express.Router();
+const { createUser, findOneUser, findAllUsers, updateUser, deleteAUser } = require('../controllersRepo/userController')
 
+// router.post("/signUp", signUp);
 
-// router.route('/signUp').post(signUp)
 //  Create User
-router.post('/', (req, res) => {
-  res.status(501).json({error: 'Not implemented'})
-})
+router.post('/', createUser)
 
 // Get All Users
-router.get("/", (req, res) => {
-  res.status(501).json({ error: "Not implemented" });
-});
+router.get("/", findAllUsers);
 
 // Get one User
-router.get("/:id", (req, res) => {
-  const { id } = req.params
-  res.status(501).json({ error: `Not implemented: ${id}`});
-});
+router.get("/:id", findOneUser);
 
 // Update User
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  res.status(501).json({ error: `Not implemented: ${id}` });
-});
+router.put("/:id", updateUser);
 
 // delete User
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  res.status(501).json({ error: `Not implemented: ${id}` });
-});
+router.delete("/:id", deleteAUser);
 
 
-router.post("/signUp", signUp)
+// router.post("/signUp", signUp)
 
 module.exports = router;
