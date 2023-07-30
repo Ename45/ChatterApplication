@@ -11,21 +11,20 @@ datasource db {
 }
 
 model User{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  firstName   String
-  lastName    String
-  profession  String
-  email       String @unique
-  password    String
-  emailVerified DateTime?
-  isVerified Boolean @default(false)
-  image       String?
-  coverImage  String?
-  profileImage  String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  firstName         String
+  lastName          String
+  profession        String
+  email             String @unique
+  password          String
+  isVerified        Boolean @default(false)
+  image             String?
+  coverImage        String?
+  profileImage      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  myPost Feed [] @relation("UserToFeed")
+  myPost            Feed [] @relation("UserToFeed")
 
   // followingIds String[] @db.ObjectId
   // hasNotification  Boolean?
@@ -37,15 +36,15 @@ model User{
 
 
 model Feed{
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String  @db.ObjectId
-  user User  @relation("UserToFeed", fields: [userId], references: [id], onDelete: Cascade)
-  title       String
-  content     String
-  image       String?
-  impression  Int @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String  @db.ObjectId
+  user            User  @relation("UserToFeed", fields: [userId], references: [id], onDelete: Cascade)
+  title           String
+  content         String
+  image           String?
+  impression      Int @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   // comments Comment[] @relation("FeedToComment")
 }

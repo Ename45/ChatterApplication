@@ -20,8 +20,6 @@ app.use("/api/1.0/users", userRoutes);
 app.use("/api/1.0/feeds", feedRoutes);
 
 
-
-
 app.get("/", (req, res) => {
   res.send("Hi from me");
 });
