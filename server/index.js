@@ -1,7 +1,7 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
-const feedRoutes = require('./routes/feedRoutes')
+const feedRoutes = require('./routes/FeedRoutes')
 const cors = require("cors");
 
 require("dotenv").config();

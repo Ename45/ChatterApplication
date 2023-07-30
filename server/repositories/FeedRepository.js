@@ -3,7 +3,7 @@ const prisma = require("../prisma/index.js");
 
 
 const createFeed = async (req, res) => {
-  const { title, content, image } = req.body;
+  const { title, content, image, userId } = req.body;
 
   try {
     const result = await prisma.feed.create({
@@ -11,6 +11,7 @@ const createFeed = async (req, res) => {
         title,
         content,
         image,
+        userId
       },
     });
     res.json(result);
@@ -29,12 +30,17 @@ const findAllFeeds = async (req, res) => {
 
 const findOneFeed = async (req, res) => {
   const { id } = req.params;
-  const Feed = await prisma.feed.findUnique({
+  const feed = await prisma.feed.findUnique({
     where: { 
       id: id
     },
   });
-  res.json(Feed);
+
+  if (!feed) {
+    return res.status(404).json({error: "Tweet not found"})
+  }
+
+  res.json(feed);
 };
 
 const updateFeed = async (req, res) => {
