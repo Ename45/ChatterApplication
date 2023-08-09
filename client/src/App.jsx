@@ -6,6 +6,7 @@ import LandingPage from './views/components/dashboard/LandingPage.jsx'
 import FeedScreen from './views/components/feed/FeedScreen.jsx'
 import SignUp from './views/components/auth/signUp/SignUp.jsx'
 import CreatePost from './views/components/createPost/createPost.jsx'
+import Posts from './views/components/feed/Posts.jsx'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element= {<Login/>}></Route>
         <Route path='/feedScreen' element= {<FeedScreen/>}></Route>
         <Route path='/createPost' element= {<CreatePost/>}></Route>
+        <Route path='/posts' element= {<Posts/>}></Route>
       </Routes>
     </BrowserRouter>
   )

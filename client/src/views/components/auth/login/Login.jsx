@@ -1,62 +1,81 @@
-import React, { useState } from 'react';
-import '../../../../styles/components/auth/login/login.css'
-// import Images from '../../../../assets/images/svg/index.js'
-import openEye from '../../../../assets/images/svg/openEye.svg'
-import { Link } from 'react-router-dom';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
-import AuthPages from '../../reuseables/AuthPages';
+import { React, useState, useNavigate, AuthPages, Axios, AuthHeader, FormButton, InputFields, openEye } from './index.jsx'
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate()
-
-  const handleSubmit = (e)=>{
-    e.preventDefault()
-    axios.post('http://localhost:3001/login', {email, password})
-    .then(result => {console.log(result)
-    navigate('/landingPage')    
-    })
-    .catch(err => console.log(err))
+  const initialValue = {
+    email: "",
+    password: "",
   }
+
+  const [data, setData] = useState (initialValue);
+
+  const handleChange = async(e) => {
+    e.preventDefault ();
+    setData (prevState => ({
+        ...prevState,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const navigate = useNavigate()  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userData = {
+      email: data.email,
+      password: data.password,
+    }
+
+    try {
+      const response = await Axios.post('http://localhost:3001/login', userData);
+
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+      navigate('/landingPage');
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 
   return (
     <div className="login-main-container">
       <AuthPages/>
         <div className="form-container">
-          <div className="reg-log-container">
-            <Link  to="/signUp" className="reg">
-              <p>REGISTER</p>
-            </Link>
-            <span className="log">
-              <p>LOGIN</p>
-            </span>            
-          </div>
-          <div className="form-header">
-            <h2>Welcome back</h2>
-          </div>
-          <form onSubmit={handleSubmit} action="">
-            <div className="input-box">
-              <label htmlFor="email">Email address</label>
-              <div className="email-input-box">
-                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email" placeholder='johndoe@gmail.com'/>
-              </div>
-            </div>
-            <div className="input-box">
-              <label htmlFor="password">Password</label>
-              <div className="password-input-box">
-                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password" placeholder='***********'/>
-                <img src={openEye} alt="open eye" />
-              </div>
-            </div>
-            <div className="create-acc-btn">
-              <Link to="/feedScreen" className="link-feedsPage">
-                <button className='my-btn'>Log in</button>
-              </Link>
-            </div>
-          </form>
+      <AuthHeader register= 'REGISTER' login="LOGIN" header="Register as a Writer/Reader" />
+      <form onSubmit={handleSubmit}>
+        <div className="input-box">
+          <InputFields
+          label='Email'
+          type="email" 
+          name="email" 
+          id="email" 
+          required= 'required' 
+          placeholder='johndoe@gmail.com' 
+          autoComplete='on'
+          value={data.email}
+          onChange={handleChange}
+          />
         </div>
+        <div className="input-box">
+            <InputFields 
+            label='Password'
+            type="password" 
+            name="password" 
+            id="password" 
+            required= 'required' 
+            placeholder='***********'
+            autoComplete='on'
+            value={data.password}
+            onChange={handleChange}
+            image={openEye}
+            imageName="open eye"
+            />
+        </div>
+        <div className="create-acc-btn">
+          <FormButton label="Login"/>
+        </div>
+      </form>
+      </div>
     </div>
   )
 }

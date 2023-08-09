@@ -1,5 +1,5 @@
 import React from 'react'
-import authPages from '../../../styles/components/reuseables/authPages.css'
+import '../../../styles/components/reuseables/authPages.css'
 
 const AuthPages = () => {
   return (

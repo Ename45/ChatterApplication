@@ -15,6 +15,11 @@ const createUser = async(req, res) => {
         password,
       }
     });
+
+    if (!result) {
+      return res.status(404).json({error: "Error creating user. All fields required "})
+    }
+
     res.json(result);
   } catch (error) {
     res.status(400).json({error: error.message})
@@ -24,7 +29,6 @@ const createUser = async(req, res) => {
 
 const findAllUsers = async(req, res) => {
   const allUsers = await prisma.user.findMany();
-
   res.json(allUsers);
 };
 
@@ -33,9 +37,12 @@ const findOneUser = async(req, res) => {
   const { id } = req.params;
   const user = await prisma.user.findUnique({
     where: {
-      id: id
-    }
-  })
+      id: id,
+    },
+    include: {
+      myPost: true,
+    },
+  });
 
   if (!user) {
     return res.status(404).json({ error: "User not found" });
@@ -75,11 +82,17 @@ const updateUser = async(req, res) => {
 const deleteAUser = async(req, res) => {
   const { id } = req.params;
   try {
-    await prisma.user.delete({
+    const userToDelete = await prisma.user.delete({
       where: {
         id: id,
       },
     });
+
+    if (!userToDelete) {
+      return res.status(404).json({error: "No such user exists"})
+    }
+
+
     res.status(200);
   } catch (error) {
     res.status(400).json({ error: error.message });

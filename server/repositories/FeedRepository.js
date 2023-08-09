@@ -14,6 +14,11 @@ const createFeed = async (req, res) => {
         userId
       },
     });
+
+    if (!result) {
+      return res.status(404).json({error: "Error creating feed. Title and content required "})
+    }
+
     res.json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -22,25 +27,55 @@ const createFeed = async (req, res) => {
 
 
 const findAllFeeds = async (req, res) => {
-  const allFeeds = await prisma.feed.findMany();
+  try {
+    const allFeeds = await prisma.feed.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profession: true,
+            profileImage: true,
+          },
+        },
+      }
+    });
 
-  res.json(allFeeds);
+    if (allFeeds.length === 0) {
+      return res.status(404).json({ error: "No available tweet" });
+    }
+
+    res.json(allFeeds);
+  } catch (error) {
+    console.error("Error fetching feeds:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };
+
 
 
 const findOneFeed = async (req, res) => {
   const { id } = req.params;
-  const feed = await prisma.feed.findUnique({
-    where: { 
-      id: id
-    },
-  });
+  try {
+    const feed = await prisma.feed.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        user: true
+      }
+    });
 
-  if (!feed) {
-    return res.status(404).json({error: "Tweet not found"})
+    if (!feed) {
+      return res.status(404).json({ error: "Feed not found" });
+    }
+
+    res.json(feed);
+  } catch (error) {
+    console.error("Error fetching feed:", error);
+    return res.status(500).json({ error: error });
   }
-
-  res.json(feed);
 };
 
 const updateFeed = async (req, res) => {
@@ -67,11 +102,16 @@ const updateFeed = async (req, res) => {
 const deleteAFeed = async (req, res) => {
   const { id } = req.params;
   try {
-    await prisma.feed.delete({
+    const feedToDelete = await prisma.feed.delete({
       where: {
         id: id,
       },
     });
+
+    if (!feedToDelete) {
+      return res.status(404).json({error: "No such tweet exists"})
+  }
+
     res.status(200);
   } catch (error) {
     res.status(400).json({ error: error.message });
