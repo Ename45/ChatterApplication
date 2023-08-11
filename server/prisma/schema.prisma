@@ -25,6 +25,7 @@ model User{
   updatedAt         DateTime @updatedAt
 
   myPost            Feed [] @relation("UserToFeed")
+  token             OTP [] @relation("UserToOTP")
 
   // followingIds String[] @db.ObjectId
   // hasNotification  Boolean?
@@ -70,4 +71,24 @@ model Notification{
   createdAt   DateTime @default(now())
 
   // user User  @relation("UserToNotification", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OTP {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  type        String //Email otp or token
+  emailToken  String? @unique
+
+  isValid     Boolean @default(true)
+  expiration  DateTime
+
+  userId      String  @db.ObjectId
+  user        User  @relation("UserToOTP", fields: [userId], references: [id], onDelete: Cascade)
+
+  // enum TokenType {
+  //   EMAIL,
+  //   API
+  // }
 }

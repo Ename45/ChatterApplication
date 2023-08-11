@@ -1,28 +1,34 @@
 const prisma = require("../prisma/index.js");
+const HashData = require('../utils/HashData.js')
 
 
 
-const createUser = async(req, res) => {
-  const { firstName, lastName, profession, email, password } = req.body
+const createUser = async(userData) => {
+  const { firstName, lastName, profession, email, password } = userData;
+
+  let hashedPassword = await HashData.hashedData(password, 10);
 
   try {
-    const result = await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         firstName,
         lastName,
         profession,
         email,
-        password,
-      }
+        password: hashedPassword,
+      },
     });
 
-    if (!result) {
-      return res.status(404).json({error: "Error creating user. All fields required "})
+    if (!newUser) {
+      throw new Error("Error creating user. All fields required");
     }
 
-    res.json(result);
+    return {
+      data: newUser,
+      message: "User Created Successfully",
+    };
   } catch (error) {
-    res.status(400).json({error: error.message})
+    throw new Error(error.message);
   }
 }
 
@@ -30,6 +36,20 @@ const createUser = async(req, res) => {
 const findAllUsers = async(req, res) => {
   const allUsers = await prisma.user.findMany();
   res.json(allUsers);
+};
+
+
+const findUserByEmail = async (email) => {
+  try {
+    const foundUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    return foundUser;
+  } catch (error) {
+    throw error;
+  }
 };
 
 
@@ -105,6 +125,7 @@ module.exports = {
   createUser,
   findOneUser,
   findAllUsers,
+  findUserByEmail,
   updateUser,
   deleteAUser,
 };

@@ -1,7 +1,8 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
-const userRoutes = require("./routes/userRoutes");
 const feedRoutes = require('./routes/FeedRoutes')
+const userAuthRoutes = require('./routes/UserAuthenticationRoutes')
+const otpRoutes = require('./routes/OTPRoutes')
 const cors = require("cors");
 
 require("dotenv").config();
@@ -16,8 +17,9 @@ app.use(cors());
 app.use(cookieParser()); //jsonwebtoken npm documentation
 
 
-app.use("/api/1.0/users", userRoutes);
 app.use("/api/1.0/feeds", feedRoutes);
+app.use("/api/1.0/user-auth", userAuthRoutes)
+app.use("/api/1.0/otp", otpRoutes)
 
 
 app.get("/", (req, res) => {

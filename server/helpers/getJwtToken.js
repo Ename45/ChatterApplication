@@ -1,7 +1,17 @@
 const jwt = require('jsonwebtoken')
+const { JWT_SECRET, JWT_EXPIRY } = process.env
 
-const getJwtToken = (userId) =>{
-  return jwt.sign({ userId: userId }, process.env.JWT_SECRET, {expiresIn: '1 day'});
+const getJwtToken = async(tokenData, tokenKey = JWT_SECRET, tokenExpiry = JWT_EXPIRY) =>{
+  try {
+    const token = await jwt.sign(tokenData, tokenKey, {
+      expiresIn: tokenExpiry,
+    });
+
+    return token;
+  } catch (error) {
+    throw error
+  }
 }
 
-module.exports = getJwtToken;
+
+module.exports = getJwtToken

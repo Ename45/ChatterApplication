@@ -37,10 +37,12 @@ const SignUp = () => {
     try {
       const response = await Axios.post('http://localhost:3000/api/1.0/users/signUp', userData);
 
+      console.log("this is in sign up component --->{}", response.headers);
+
       if (response.status === 200) {
         console.log(response.data);
       }
-      navigate('/codeConfirmation');
+      navigate(`/codeConfirmation/${data.email}`);
     } catch (error) {
       console.log(error.response.data);
     }

@@ -4,7 +4,7 @@ import FormButton from '../../reuseables/FormButton';
 import InputFields from '../../reuseables/InputFields';
 import AuthPages from '../../reuseables/AuthPages';
 import backArrow from '../../../../assets/images/svg/backArrow.svg'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,9 @@ const CodeConfirmation = () => {
   }
 
   const [data, setData] = useState (initialValue);
+  const { email } = useParams();
+
+  console.log('this is the email extracted from URL in codeConfirmation', email);
   
   const handleChange = async(e) => {
     e.preventDefault ();
@@ -56,6 +59,8 @@ const CodeConfirmation = () => {
     
     try {
       const response = await Axios.post('http://localhost:5000/api/v1/email_verification/verify', {email, otp});
+
+      console.log("this is in code confirmation component --->{}", response.headers);
 
       if (response.status === 200) {
         console.log(response.data);
