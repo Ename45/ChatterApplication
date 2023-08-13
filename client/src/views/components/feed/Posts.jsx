@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import FormButton from '../reuseables/FormButton.jsx'
+import FormButton from '../reusable/FormButton.jsx'
 import { Icon } from '@iconify/react';
-import InputFields from '../reuseables/InputFields.jsx';
+import InputFields from '../reusable/InputFields.jsx';
 import { Axios } from '../auth/signUp/index.jsx';
 import {useNavigate} from 'react-router-dom'
 

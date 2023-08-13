@@ -13,9 +13,9 @@ const requestOTP = async(req, res) => {
 
 const verifyOTP = async(req, res) => {
   try {
-    // const { email } = req.params;
-    // const { email, otp } = req.body;
-    const verifiedOTP = await OtpService.verifyOTP(req.body)
+    const { email } = req.params;
+    const { otp } = req.body;
+    const verifiedOTP = await OtpService.verifyOTP({email, otp})
     return verifiedOTP
   } catch (error) {
     return res.status(500).json({ error: error.message });

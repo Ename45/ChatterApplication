@@ -1,4 +1,4 @@
-import { React, useState, useNavigate, AuthPages, Axios, AuthHeader, FormButton, InputFields, openEye, eyeClosed, googleLogo, linkedinLogo } from './index.jsx'
+import { React, useState, useNavigate, AuthPages, Axios, AuthHeader, FormButton, InputFields, openEye, eyeClosed, googleLogo, linkedinLogo, signUpUrl } from './index.jsx'
 
 const SignUp = () => {
 
@@ -35,7 +35,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await Axios.post('http://localhost:3000/api/1.0/users/signUp', userData);
+      const response = await Axios.post(signUpUrl, userData);
 
       console.log("this is in sign up component --->{}", response.headers);
 
@@ -61,7 +61,7 @@ const SignUp = () => {
             <InputFields 
             label="First name"
             type="text" 
-            name="first" 
+            name="firstName" 
             id="firstName"
             required= 'required' 
             placeholder='John'
@@ -74,7 +74,7 @@ const SignUp = () => {
             <InputFields
             label='Last name' 
             type="text" 
-            name="lastName "
+            name="lastName"
             id="lastName" 
             required= 'required' 
             placeholder='Doe' 

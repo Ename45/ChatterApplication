@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 router.post('/send-otp', OTPController.requestOTP)
-router.post('/verify-otp', OTPController.verifyOTP)
+router.post('/verify-otp/:email', OTPController.verifyOTP)
 
 
 module.exports = router

@@ -1,4 +1,4 @@
-import { React, useState, useNavigate, AuthPages, Axios, AuthHeader, FormButton, InputFields, openEye } from './index.jsx'
+import { React, useState, useNavigate, AuthPages, Axios, AuthHeader, FormButton, InputFields, openEye, loginUrl } from './index.jsx'
 
 const Login = () => {
   const initialValue = {
@@ -26,7 +26,7 @@ const Login = () => {
     }
 
     try {
-      const response = await Axios.post('http://localhost:3001/login', userData);
+      const response = await Axios.post(loginUrl, userData);
 
       if (response.status === 200) {
         console.log(response.data);

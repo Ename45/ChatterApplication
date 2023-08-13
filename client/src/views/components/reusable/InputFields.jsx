@@ -6,7 +6,7 @@ const InputFields = (props) => {
   
   return (
     <div>
-      <label htmlFor="confirmPassword">{label}</label>
+      <label htmlFor="">{label}</label>
       <div className="confirm-password-input">
         <input 
         type={type} 

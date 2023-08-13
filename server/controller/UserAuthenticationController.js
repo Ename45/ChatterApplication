@@ -11,7 +11,9 @@ const register = async(req, res) => {
 
 const codeConfirmation = async (req, res) => {
   try {
-    const confirmedMessage = await UserAuthentication.codeConfirmation(req.body);
+    const { email } = req.params;
+    const { otp } = req.body;
+    const confirmedMessage = await UserAuthentication.codeConfirmation({email, otp});
     return res.json(confirmedMessage.message);
   } catch (error) {
     return res.status(500).json({ error: error.message });

@@ -38,8 +38,8 @@ const register = async(request) => {
 }
 
 
-const codeConfirmation = async(request) => {
-  const { email, otp } = request
+const codeConfirmation = async({email, otp}) => {
+  // const { email, otp } = request
 
   const verifiedOTP = await OtpService.verifyOTP({ email, otp })
 

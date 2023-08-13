@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
 import '../../../../styles/components/auth/signUp/codeConfirmation.css'
-import FormButton from '../../reuseables/FormButton';
-import InputFields from '../../reuseables/InputFields';
-import AuthPages from '../../reuseables/AuthPages';
+import FormButton from '../../reusable/FormButton';
+import InputFields from '../../reusable/InputFields';
+import AuthPages from '../../reusable/AuthPages';
 import backArrow from '../../../../assets/images/svg/backArrow.svg'
 import { Link, useParams } from 'react-router-dom';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { codeConfirmationUrl } from './index'
 
 const CodeConfirmation = () => {
   const initialValue = {
@@ -58,7 +59,7 @@ const CodeConfirmation = () => {
     const otp = data.codeOne + data.codeTwo + data.codeThree + data.codeFour
     
     try {
-      const response = await Axios.post('http://localhost:5000/api/v1/email_verification/verify', {email, otp});
+      const response = await Axios.post(codeConfirmationUrl(email), {otp});
 
       console.log("this is in code confirmation component --->{}", response.headers);
 
@@ -134,9 +135,9 @@ const CodeConfirmation = () => {
           />
         </div>
         </div>
-        <Link to="/login" className="create-acc-btn">
+        <div className="create-acc-btn">
           <FormButton label="Create account"/>
-        </Link>
+        </div>
       </form>
           </div>
         </div>

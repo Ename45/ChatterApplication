@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import '../../../../styles/components/auth/login/login.css'
-import FormButton from '../../reuseables/FormButton';
-import InputFields from '../../reuseables/InputFields';
-import AuthHeader from '../../reuseables/AuthHeader';
-import AuthPages from '../../reuseables/AuthPages';
+import FormButton from '../../reusable/FormButton';
+import InputFields from '../../reusable/InputFields';
+import AuthHeader from '../../reusable/AuthHeader';
+import AuthPages from '../../reusable/AuthPages';
 import openEye from '../../../../assets/images/svg/openEye.svg'
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { loginUrl } from '../../../../api/Api';
 
 
 export {
@@ -19,4 +20,5 @@ export {
   FormButton,
   InputFields,
   openEye,
+  loginUrl
 };

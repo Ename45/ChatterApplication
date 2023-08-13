@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/' element= {<LandingPage/>}></Route>
         <Route path='/signUp' element={<SignUp/>}></Route>
-        <Route path='/codeConfirmation' element= {<CodeConfirmation/>}></Route>
+        <Route path='/codeConfirmation/:email' element= {<CodeConfirmation/>}></Route>
         <Route path='/login' element= {<Login/>}></Route>
         <Route path='/feedScreen' element= {<FeedScreen/>}></Route>
         <Route path='/createPost' element= {<CreatePost/>}></Route>

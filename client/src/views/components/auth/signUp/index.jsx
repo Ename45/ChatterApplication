@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import '../../../../styles/components/auth/signUp/signUp.css'
-import FormButton from '../../reuseables/FormButton';
-import InputFields from '../../reuseables/InputFields';
-import AuthHeader from '../../reuseables/AuthHeader';
+import FormButton from '../../reusable/FormButton';
+import InputFields from '../../reusable/InputFields';
+import AuthHeader from '../../reusable/AuthHeader';
 import openEye from '../../../../assets/images/svg/openEye.svg'
 import eyeClosed from '../../../../assets/images/svg/eyeClosed.svg'
 import googleLogo from '../../../../assets/images/svg/googleLogo.svg'
 import linkedinLogo from '../../../../assets/images/svg/linkedinLogo.svg'
-import AuthPages from '../../reuseables/AuthPages';
+import AuthPages from '../../reusable/AuthPages';
 import Axios from 'axios'
+import { signUpUrl, codeConfirmationUrl } from '../../../../api/Api.jsx'
 
 export {
   React,
@@ -24,4 +25,6 @@ export {
   eyeClosed,
   googleLogo,
   linkedinLogo,
+  signUpUrl,
+  codeConfirmationUrl
 };

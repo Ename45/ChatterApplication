@@ -17,9 +17,9 @@ app.use(cors());
 app.use(cookieParser()); //jsonwebtoken npm documentation
 
 
-app.use("/api/1.0/feeds", feedRoutes);
-app.use("/api/1.0/user-auth", userAuthRoutes)
-app.use("/api/1.0/otp", otpRoutes)
+app.use("/api/1.0/chatter/feeds", feedRoutes);
+app.use("/api/1.0/chatter/user-auth", userAuthRoutes)
+app.use("/api/1.0/chatter/otp", otpRoutes)
 
 
 app.get("/", (req, res) => {

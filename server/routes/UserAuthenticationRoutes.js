@@ -4,7 +4,8 @@ const UserAuthenticationController = require('../controller/UserAuthenticationCo
 
 
 router.post('/register', UserAuthenticationController.register)
-router.post('/code-confirmation', UserAuthenticationController.codeConfirmation)
+// router.post('/code-confirmation', UserAuthenticationController.codeConfirmation)
+router.post('/code-confirmation/:email', UserAuthenticationController.codeConfirmation)
 router.post('/login', UserAuthenticationController.login)
 
 // router.get("/", findAllUsers);
