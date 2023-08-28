@@ -19,8 +19,6 @@ const CodeConfirmation = () => {
 
   const [data, setData] = useState (initialValue);
   const { email } = useParams();
-
-  console.log('this is the email extracted from URL in codeConfirmation', email);
   
   const handleChange = async(e) => {
     e.preventDefault ();
@@ -60,8 +58,6 @@ const CodeConfirmation = () => {
     
     try {
       const response = await Axios.post(codeConfirmationUrl(email), {otp});
-
-      console.log("this is in code confirmation component --->{}", response.headers);
 
       if (response.status === 200) {
         console.log(response.data);

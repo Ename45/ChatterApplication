@@ -26,16 +26,20 @@ const requestOTP = async(request) => {
   }
 }
 
-const saveToken = async( token, foundUser ) => {
+const saveToken = async( sessionToken ) => {
+  const { token, expires, data } = sessionToken
+  const { id } = data
+  
   try {
-    if (!(token && foundUser)) {
+    if (!(token && expires && data)) {
       throw new Error("token or user missing");
     }
 
-    await OTPRepository.createTokenInDb(token, foundUser)
+    const storedToken = await OTPRepository.createTokenInDb(token, expires, data)
 
     return {
-      message: 'Token saved'
+      data: storedToken.data,
+      message: storedToken.message
     }
     
   } catch (error) {

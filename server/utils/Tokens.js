@@ -1,21 +1,26 @@
-const getJwtToken = require('../helpers/GetJwtToken')
+const GetJwtToken = require('../helpers/GetJwtToken')
 
 
 const generateOTP = () => {
   return Math.floor(1000 + Math.random() * 9000).toString();
 };
 
-const cookieToken = async(foundUser, email) => {
-  tokenData = {userId: foundUser.id, email}
+const cookieToken = async(foundUser, res) => {
+  tokenData = {userId: foundUser.id, email: foundUser.email}
 
-  const token = await getJwtToken(tokenData)
+  const token = await GetJwtToken.getJwtToken(tokenData)
 
   const options = {
     expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
-    httpOnly: true
+    httpOnly: true,
+    secure: true
+    // maxAge: 1000000,
+    // signed: true
   }
 
   foundUser.password = undefined;
+
+  res.status(200).cookie('token', token, options)
 
   return{
     token: token,
@@ -23,6 +28,7 @@ const cookieToken = async(foundUser, email) => {
     data: foundUser
   }
 }
+
 // const cookieToken = (user, res) => {
 //   // console.log(user)
 //   const token = getJwtToken(user.id)
@@ -39,6 +45,8 @@ const cookieToken = async(foundUser, email) => {
 //     user
 //   })
 // }
+
+
 
 module.exports = {
   cookieToken,

@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { createFeed, findOneFeed, findAllFeeds, updateFeed, deleteAFeed, } = require("../repositories/FeedRepository");
+const FeedController = require('../controller/FeedController')
+const SessionCheck = require('../middleware/CheckSession')
 
-router.post("/", createFeed);
 
-router.get("/", findAllFeeds);
+router.post("/", SessionCheck.checkSession, FeedController.sendPost);
 
-router.get("/:id", findOneFeed);
+router.get("/", SessionCheck.checkSession, FeedController.findAllPosts);
 
-router.put("/:id", updateFeed);
+router.get("/:id", FeedController.findOnePost);
 
-router.delete("/:id", deleteAFeed);
+// router.put("/:id", FeedService.updatePost);
+
+router.delete("/:id", FeedController.deleteAPost);
 
 
 

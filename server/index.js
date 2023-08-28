@@ -11,7 +11,12 @@ const app = express();
 // Default/Regular middleware
 app.use(express.json()); //allows us to use the json from the request body
 app.use(express.urlencoded({ extended: true })); //check from express js documentation/ how to get started
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 //cookie middleware
 app.use(cookieParser()); //jsonwebtoken npm documentation

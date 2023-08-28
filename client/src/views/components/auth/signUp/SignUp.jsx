@@ -37,8 +37,6 @@ const SignUp = () => {
     try {
       const response = await Axios.post(signUpUrl, userData);
 
-      console.log("this is in sign up component --->{}", response.headers);
-
       if (response.status === 200) {
         console.log(response.data);
       }

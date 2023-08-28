@@ -4,20 +4,20 @@ const UserAuthenticationController = require('../controller/UserAuthenticationCo
 
 
 router.post('/register', UserAuthenticationController.register)
-// router.post('/code-confirmation', UserAuthenticationController.codeConfirmation)
+
 router.post('/code-confirmation/:email', UserAuthenticationController.codeConfirmation)
 router.post('/login', UserAuthenticationController.login)
 
-// router.get("/", findAllUsers);
+router.get("/", UserAuthenticationController.findAllUsers);
 
 
-// router.get("/:id", findOneUser);
+router.get("/:id", UserAuthenticationController.findOneUser);
 
 
-// router.put("/:id", updateUser);
+router.put("/:id", UserAuthenticationController.updateUser);
 
 
-// router.delete("/:id", deleteAUser);
+router.delete("/:id", UserAuthenticationController.deleteUser);
 
 
 module.exports = router

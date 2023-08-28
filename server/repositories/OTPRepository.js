@@ -49,6 +49,7 @@ const sendOTP = async(otpDetails) => {
 const verifyUserEmailWithPin = async({ email, otp }) => {
   try {
     const validOTP = await validateOTP({email, otp});
+    
 
     if (!validOTP) {
       throw new Error("invalid OTP passed");
@@ -62,6 +63,7 @@ const verifyUserEmailWithPin = async({ email, otp }) => {
         isVerified: true,
       },
     });
+
     
     const foundUser = await prisma.user.findUnique({
       where: {
@@ -93,17 +95,17 @@ const verifyUserEmailWithPin = async({ email, otp }) => {
 
 
 
-const createTokenInDb = async(token, foundUser) => {
+const createTokenInDb = async(token, expiry, foundUser) => {
   try {
-    if (!token.token) {
+    if (!token) {
       throw new Error("token not provided");
     }
 
     const storedToken = await prisma.oTP.create({
       data: {
         type: "cookie token",
-        emailToken: token.token,
-        expiration: token.expires,
+        emailToken: token,
+        expiration: expiry,
         user: {
           connect: {
             email: foundUser.email,
@@ -140,17 +142,15 @@ const validateOTP = async ({email, otp}) => {
     if (!(email && otp)) {
       throw new Error("incomplete validation information");
     }
-
     const foundUser = await prisma.user.findUnique({
       where: {
         email: email,
       },
-    });
+    });    
 
     if (!foundUser) {
       throw new Error("User does not exist");
     }
-
 
     const foundOTP = await prisma.oTP.findFirst({
       where: {
@@ -170,8 +170,6 @@ const validateOTP = async ({email, otp}) => {
     }
 
     const isMatch = await HashedData.verifyHashedData(otp, emailToken);
-
-    console.log('do the passwords match?', isMatch);
 
     if (!isMatch) {
       throw new Error("Wrong OTP");

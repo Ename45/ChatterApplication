@@ -26,12 +26,17 @@ const Login = () => {
     }
 
     try {
-      const response = await Axios.post(loginUrl, userData);
+      const response = await Axios.post(loginUrl, userData, {
+        withCredentials: true,
+      })
 
       if (response.status === 200) {
+        document.cookie = `token=${response.data.token}; expires=${new Date(
+      response.data.tokenExpiry
+    ).toUTCString()}; path=/`;
         console.log(response.data);
       }
-      navigate('/landingPage');
+      navigate('/feedScreen');
     } catch (error) {
       console.log(error.response.data);
     }

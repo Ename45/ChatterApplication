@@ -2,8 +2,8 @@ const prisma = require("../prisma/index.js");
 
 
 
-const createFeed = async (req, res) => {
-  const { title, content, image, userId } = req.body;
+const createPost = async ( postData ) => {
+  const { title, content, image, userId } = postData;
 
   try {
     const result = await prisma.feed.create({
@@ -11,24 +11,27 @@ const createFeed = async (req, res) => {
         title,
         content,
         image,
-        userId
+        userId: userId,
       },
     });
 
     if (!result) {
-      return res.status(404).json({error: "Error creating feed. Title and content required "})
+      throw new Error("Error creating post. Title and content required");
     }
 
-    res.json(result);
+    return {
+      data: result,
+      message: "Post Created Successfully",
+    };
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    throw new Error(error.message);
   }
 };
 
 
-const findAllFeeds = async (req, res) => {
+const findAllPosts = async () => {
   try {
-    const allFeeds = await prisma.feed.findMany({
+    const allPosts = await prisma.feed.findMany({
       include: {
         user: {
           select: {
@@ -42,23 +45,25 @@ const findAllFeeds = async (req, res) => {
       }
     });
 
-    if (allFeeds.length === 0) {
-      return res.status(404).json({ error: "No available tweet" });
+    if (allPosts.length === 0) {
+      return "No available tweet";
     }
 
-    res.json(allFeeds);
+    return {
+      data: allPosts,
+      message: "Post Created Successfully",
+    };
   } catch (error) {
-    console.error("Error fetching feeds:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    throw error;
   }
 };
 
 
 
-const findOneFeed = async (req, res) => {
+const findOnePost = async (req, res) => {
   const { id } = req.params;
   try {
-    const feed = await prisma.feed.findUnique({
+    const post = await prisma.feed.findUnique({
       where: {
         id: id,
       },
@@ -67,18 +72,18 @@ const findOneFeed = async (req, res) => {
       }
     });
 
-    if (!feed) {
-      return res.status(404).json({ error: "Feed not found" });
+    if (!post) {
+      return res.status(404).json({ error: "post not found" });
     }
 
-    res.json(feed);
+    res.json(post);
   } catch (error) {
-    console.error("Error fetching feed:", error);
+    console.error("Error fetching post:", error);
     return res.status(500).json({ error: error });
   }
 };
 
-const updateFeed = async (req, res) => {
+const updatePost = async (req, res) => {
   const { id } = req.params;
   const { title, content, image } = req.body;
 
@@ -95,20 +100,20 @@ const updateFeed = async (req, res) => {
     });
     res.json(updatedData);
   } catch (error) {
-    res.status(400).json({ error: "failed to update Feed" });
+    res.status(400).json({ error: "failed to update post" });
   }
 };
 
-const deleteAFeed = async (req, res) => {
+const deleteAPost = async (req, res) => {
   const { id } = req.params;
   try {
-    const feedToDelete = await prisma.feed.delete({
+    const postToDelete = await prisma.feed.delete({
       where: {
         id: id,
       },
     });
 
-    if (!feedToDelete) {
+    if (!postToDelete) {
       return res.status(404).json({error: "No such tweet exists"})
   }
 
@@ -119,9 +124,9 @@ const deleteAFeed = async (req, res) => {
 };
 
 module.exports = {
-  createFeed,
-  findOneFeed,
-  findAllFeeds,
-  updateFeed,
-  deleteAFeed,
+  createPost,
+  findOnePost,
+  findAllPosts,
+  updatePost,
+  deleteAPost,
 };

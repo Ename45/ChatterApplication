@@ -49,8 +49,8 @@ const codeConfirmation = async({email, otp}) => {
 }
 
 
-const login = async(request) => {
-  const { email, password } = request
+const login = async(request, res) => {
+  const { email, password } = request;
 
   if (!(email && password)) {
     throw new Error('All fields required')
@@ -70,13 +70,16 @@ const login = async(request) => {
     throw new Error('This account is not verified, check your email for the OTP sent')
   }
 
-  const sessionToken = await Cookie.cookieToken(foundUser, email);
 
-  const saveToken = await OtpService.saveToken( sessionToken, foundUser )
+  const sessionToken = await Cookie.cookieToken(foundUser, res);
+  console.log("token", sessionToken);
+  
+  const savedToken = await OtpService.saveToken( sessionToken )
 
+  // res.setHeader("Content-Type", "application/json");
   return {
     message: "User logged in",
-    token: sessionToken.token,
+    token: savedToken.data.emailToken,
     tokenExpiry: sessionToken.expires,
     userData: sessionToken.data
   }

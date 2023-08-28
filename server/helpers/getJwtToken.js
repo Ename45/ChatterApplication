@@ -14,4 +14,18 @@ const getJwtToken = async(tokenData, tokenKey = JWT_SECRET, tokenExpiry = JWT_EX
 }
 
 
-module.exports = getJwtToken
+const verifyToken = async(token) => {
+  try {
+    const decodedToken = await jwt.verify(token, JWT_SECRET);
+
+    return decodedToken;    
+  } catch (error) {
+    throw error
+  }
+};
+
+
+module.exports = {
+  getJwtToken,
+  verifyToken  
+}

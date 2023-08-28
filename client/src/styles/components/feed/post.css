@@ -1,0 +1,39 @@
+.main-post-container{
+  border-bottom: 2px solid rgb(228, 228, 228);
+}
+
+.inner-post-container{
+  width: 600px;
+  margin-left: 80px;
+}
+
+.profile-intro{
+  display: flex;
+  align-items: center;
+}
+
+.mins-read{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.post-text{
+  text-align: justify;
+}
+
+.post-image{
+  height: 60px;
+}
+
+.impressions{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inner-flex{
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}

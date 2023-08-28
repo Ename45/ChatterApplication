@@ -4,7 +4,7 @@ const Images = {
   linkedinLogo: require('./linkedinLogo.svg'),
   openEye: require('./openEye.svg'),
   registerBackground: require('./register-background.svg'),
-  backArrow: require('./backArrow.svg')
+  backArrow: require('./backArrow.svg'),
 }
 
 export default Images
